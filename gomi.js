@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         // 各種JSONデータの読み込み
         const [calendarResponse, areaResponse] = await Promise.all([
-            fetch('gomi_calender2026.json'),
+            fetch('gomi_calender.json'),
             fetch('big_gomi_area.json')
         ]);
         
