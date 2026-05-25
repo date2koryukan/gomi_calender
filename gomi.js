@@ -22,9 +22,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             areaMap.set(String(item.no), item.s_area);
         });
 
-        // 「明日」の基準日を設定 (2026年5月25日を現在日として基準に設定)
-        const baseDate = new Date(2026, 4, 25); // 月は0から始まるため 4 = 5月
-        
+        // 「明日」の基準日を設定 (今日の日付を取得し、基準とする)
+        // const baseDate = new Date(2026, 4, 25); // テスト。月は0から始まるため 4 = 5月
+        const baseDate = new Date; // 月は0から始まるため 4 = 5月
+        baseDate.setHours(0, 0, 0, 0); // 時刻を00:00:00にリセット      
+
         const gridContainer = document.getElementById("calendarGrid");
         gridContainer.innerHTML = "";
 
