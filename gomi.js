@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         // 「明日」の基準日を設定 (今日の日付を取得し、基準とする)
-        // const baseDate = new Date(2026, 4, 25); // テスト。月は0から始まるため 4 = 5月
+        // const baseDate = new Date(2027, 2, 27); // テスト用。月は0から始まるため 2 = 3月
         const baseDate = new Date; // 今日の日付を取得
         baseDate.setHours(0, 0, 0, 0); // 時刻を00:00:00にリセット      
 
@@ -46,7 +46,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const lookupKeyShort = `${year}/${month}/${date}`;
 
             // カレンダーから該当日のデータを取得
-            const gomiInfo = calendarMap.get(lookupKey) || calendarMap.get(lookupKeyShort) || { type: "", area: "" };
+            // 💡データそのものが存在しないかを判定するため、ここではデフォルト値を入れずに undefined のままにします
+            const gomiInfo = calendarMap.get(lookupKey) || calendarMap.get(lookupKeyShort);
 
             // カラム要素の生成
             const columnIdx = i - 1;
@@ -72,24 +73,36 @@ document.addEventListener("DOMContentLoaded", async () => {
             headerEl.textContent = `${month}月${date}日(${dayOfWeekStr})`;
             columnEl.appendChild(headerEl);
 
-            // ゴミ種別の判定と表示名の調整、および配色の決定
-            let displayType = gomiInfo.type || "(収集なし)";
+            // 💡 ゴミ種別の判定と表示名の調整、および配色の決定 (ここを修正)
+            let displayType = "";
             let cardClass = "none";
 
-            if (displayType.includes("ガラスびん")) {
-                cardClass = "glass-pet";
-            } else if (displayType === "粗大ごみ") {
-                cardClass = "big-gomi";
-            } else if (displayType === "もやせるごみ") {
-                displayType = "もやせるごみ";
-                cardClass = "burnable";
-            } else if (displayType.includes("古紙")) {
-                displayType = "古紙類";
-                cardClass = "paper";
-            } else if (displayType === "もやせないごみ") {
-                cardClass = "unburnable"; // 新設：青色の背景
-            } else if (displayType === "プラスチック") {
-                cardClass = "plastic";   // 新設：薄い紫色の背景
+            if (!gomiInfo) {
+                // JSONに該当する日付のデータ自体がない場合
+                displayType = "（データなし）";
+                cardClass = "none";
+            } else if (gomiInfo.type === "") {
+                // JSONにデータはあるが、収集がない日の場合 (例: "type": "")
+                displayType = "(収集なし)";
+                cardClass = "none";
+            } else {
+                // 収集データがある場合
+                displayType = gomiInfo.type;
+                
+                if (displayType.includes("ガラスびん")) {
+                    cardClass = "glass-pet";
+                } else if (displayType === "粗大ごみ") {
+                    cardClass = "big-gomi";
+                } else if (displayType === "もやせるごみ") {
+                    cardClass = "burnable";
+                } else if (displayType.includes("古紙")) {
+                    displayType = "古紙類";
+                    cardClass = "paper";
+                } else if (displayType === "もやせないごみ") {
+                    cardClass = "unburnable";
+                } else if (displayType === "プラスチック") {
+                    cardClass = "plastic";
+                }
             }
 
             // カード要素の追加
@@ -99,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             columnEl.appendChild(cardEl);
 
             // 粗大ごみの場合の追加地域情報
-            if (gomiInfo.type === "粗大ごみ" && gomiInfo.area) {
+            if (gomiInfo && gomiInfo.type === "粗大ごみ" && gomiInfo.area) {
                 const areaInfoEl = document.createElement("div");
                 areaInfoEl.className = "area-info";
                 
