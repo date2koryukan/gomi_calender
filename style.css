@@ -44,8 +44,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 22vh;
-    margin-bottom: 6vh; /* 「あした」マーカー用の余白 */
+    height: 30vh;
+    margin-bottom: 8vh; /* 「あした」マーカー用の余白 */
     position: relative;
 }
 
@@ -85,7 +85,7 @@ body {
     flex-direction: column;
     padding: 0 1vw;
     position: relative;
-    height: 100%;
+    height: 80%;
 }
 
 /* 列間の区切り線 (最後の列以外) */
@@ -102,7 +102,7 @@ body {
 /* 「あした」の矢印マーカー */
 .tomorrow-marker {
     position: absolute;
-    top: -6vh;
+    top: -8vh;
     left: 50%;
     transform: translateX(-50%);
     background-color: #f0a000;

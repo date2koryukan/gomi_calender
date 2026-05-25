@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // 「明日」の基準日を設定 (今日の日付を取得し、基準とする)
         // const baseDate = new Date(2026, 4, 25); // テスト。月は0から始まるため 4 = 5月
-        const baseDate = new Date; // 月は0から始まるため 4 = 5月
+        const baseDate = new Date; // 今日の日付を取得
         baseDate.setHours(0, 0, 0, 0); // 時刻を00:00:00にリセット      
 
         const gridContainer = document.getElementById("calendarGrid");
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 cardClass = "glass-pet";
             } else if (displayType === "粗大ごみ") {
                 cardClass = "big-gomi";
-            } else if (displayType === "もやせるごみ" || displayType === "もやせるごom") {
+            } else if (displayType === "もやせるごみ") {
                 displayType = "もやせるごみ";
                 cardClass = "burnable";
             } else if (displayType.includes("古紙")) {
