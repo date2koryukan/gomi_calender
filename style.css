@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+/* 画面全体をスクロールバーなしの固定領域にする */
+body {
+    background-color: #333333; /* 背景に隙間ができたとき用の外側シックカラー */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 常に16:9を維持して画面いっぱいに広がるコンテナ */
+.aspect-wrapper {
+    width: 100vw;
+    height: 56.25vw; /* 16:9 (9 / 16 = 0.5625) */
+    max-width: 177.78vh; /* 16:9 (16 / 9 = 1.7778) */
+    max-height: 100vh;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 3.5vh 3vw 2vh 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* ヘッダーデザイン */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 22vh;
+    margin-bottom: 6vh; /* 「あした」マーカー用の余白 */
+    position: relative;
+}
+
+.header-title {
+    background-color: #72c140;
+    color: white;
+    font-size: 3.8vh;
+    font-weight: bold;
+    padding: 1.5vh 4vw;
+    border-radius: 8px;
+    letter-spacing: 2px;
+}
+
+.header-illustration {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.truck-img {
+    height: 22vh; /* ヘッダーからはみ出すダイナミックなサイズ感 */
+    width: auto;
+    object-fit: contain;
+}
+
+/* カレンダーグリッド */
+.calendar-grid {
+    display: flex;
+    width: 100%;
+    height: 68vh;
+    justify-content: space-between;
+}
+
+.calendar-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1vw;
+    position: relative;
+    height: 100%;
+}
+
+/* 列間の区切り線 (最後の列以外) */
+.calendar-column:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #cccccc;
+}
+
+/* 「あした」の矢印マーカー */
+.tomorrow-marker {
+    position: absolute;
+    top: -6vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0a000;
+    color: white;
+    font-size: 3vh;
+    font-weight: bold;
+    padding: 0.2vh 0 0.5vh 0;
+    border-radius: 4px;
+    text-align: center;
+    width: 8.5vw;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tomorrow-marker::after {
+    content: "";
+    position: absolute;
+    bottom: -0.9vh;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 1vh 1.2vh 0;
+    border-style: solid;
+    border-color: #f0a000 transparent transparent;
+}
+
+/* 日付ヘッダー */
+.date-header {
+    font-size: 3cqb;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2.5vh;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-header.weekday { color: #000000; }
+.date-header.sat { color: #0066cc; }
+.date-header.sun { color: #cc0000; }
+
+/* ゴミ種別カード */
+.gomi-card {
+    border-radius: 6px;
+    padding: 2vh 1vw;
+    text-align: center;
+    font-size: 2.6vh;
+    font-weight: bold;
+    height: 18vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+    margin-bottom: 2vh;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+/* ゴミ種別ごとの配色設定 */
+.gomi-card.glass-pet { background-color: #c2e7b9; color: #000000; }
+.gomi-card.big-gomi  { background-color: #fff566; color: #000000; }
+.gomi-card.burnable  { background-color: #ffc069; color: #000000; }
+.gomi-card.paper     { background-color: #d9d9d9; color: #000000; }
+.gomi-card.unburnable { background-color: #a6c8ff; color: #000000; } /* もやせないごみ：青 */
+.gomi-card.plastic   { background-color: #e8d2ff; color: #000000; } /* プラスチック：薄い紫 */
+.gomi-card.none      { background-color: #f5f5f5; color: #777777; font-weight: normal; border: 1px dashed #cccccc; }
+
+/* 粗大ごみの地域情報 */
+.area-info {
+    text-align: left;
+    font-size: 2.5vh;
+    color: #333333;
+    line-height: 1.5;
+    padding: 0.5vh;
+    font-weight: normal;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.area-title {
+    font-weight: bold;
+    margin-bottom: 0.4vh;
+    color: #111111;
+}
