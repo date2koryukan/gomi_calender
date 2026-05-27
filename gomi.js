@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const lookupKeyShort = `${year}/${month}/${date}`;
 
             // カレンダーから該当日のデータを取得
-            // 💡データそのものが存在しないかを判定するため、ここではデフォルト値を入れずに undefined のままにします
+            // 💡データそのものが存在しないかを判定するため、デフォルト値を入れずに undefined のままにしておく
             const gomiInfo = calendarMap.get(lookupKey) || calendarMap.get(lookupKeyShort);
 
             // カラム要素の生成
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             headerEl.textContent = `${month}月${date}日(${dayOfWeekStr})`;
             columnEl.appendChild(headerEl);
 
-            // 💡 ゴミ種別の判定と表示名の調整、および配色の決定 (ここを修正)
+            // 💡 ゴミ種別の判定と表示名の調整、および配色の決定 
             let displayType = "";
             let cardClass = "none";
 
