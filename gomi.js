@@ -1,3 +1,7 @@
+// 伊達市：伊達地区のごみ収集カレンダー
+// gomi_calender.json と big_gomi_area.json の２つのJSONファイルを読み込み、明日から６日分のごみ収集情報を表示する。
+// 他の地区はデータ構造やごみの名称が違う場合があるので、このままでは他地区には使えない。
+
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         // 各種JSONデータの読み込み
